@@ -21,6 +21,7 @@ public class Product {
     private String brand;
     private String category;
 
+    
     public Product(int id, String title, String description, double price, double discountPercentage,
                    double rating, int stock, String brand, String category) {
         this.id = id;
@@ -33,7 +34,21 @@ public class Product {
         this.brand = brand;
         this.category = category;
     }
-
+    //in ra chuỗi đẹp
+    public String chuoiDep() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID: ").append(id).append("\n");
+        sb.append("Title: ").append(title).append("\n");
+        sb.append("Description: ").append(description).append("\n");
+        sb.append("Price: ").append(price).append("\n");
+        sb.append("Discount Percentage: ").append(discountPercentage).append("\n");
+        sb.append("Rating: ").append(rating).append("\n");
+        sb.append("Stock: ").append(stock).append("\n");
+        sb.append("Brand: ").append(brand).append("\n");
+        sb.append("Category: ").append(category).append("\n");
+        return sb.toString();
+    }
+    
     // Getters and setters (you can generate them automatically in your IDE)
 
     public int getId() {

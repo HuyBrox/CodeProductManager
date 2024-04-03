@@ -12,10 +12,39 @@ import java.util.List;
 public class ProductList {
     private List<Product> danhSachSanPham;
 
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (Product product : danhSachSanPham) {
+            result.append(product.toString()).append("\n");
+        }
+        return result.toString();
+    }
+
     public ProductList() {
         this.danhSachSanPham = new ArrayList<>();
     }
+    //tìm theo ID
+    public Product timSanPhamTheoID(int id) {
+        for (Product product : danhSachSanPham) {
+            if (product.getId() == id) {
+                return product; // Trả về sản phẩm nếu tìm thấy ID tương ứng
+            }
+        }
+        return null; // Trả về null nếu không tìm thấy sản phẩm với ID tương ứng
+    }
+    //Tìm theo tên
+    public List<Product> timSanPhamTheoTen(String ten) {
+        List<Product> ketQua = new ArrayList<>();
 
+        for (Product product : danhSachSanPham) {
+            if (product.getTitle().equalsIgnoreCase(ten)) {
+                ketQua.add(product);
+            }
+        }
+
+        return ketQua;
+    }
     public void themSanPham(Product sanPham) {
         danhSachSanPham.add(sanPham);
     }
