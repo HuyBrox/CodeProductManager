@@ -4,8 +4,13 @@
  */
 package productmanager;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,12 +18,13 @@ import javax.swing.JOptionPane;
  */
 public class ProductApp extends javax.swing.JFrame {
 
-    private ProductList productList; // Khai báo biến productList ở đây
-
-    public ProductApp() {
+    private ProductList productList, productList2; // Khai báo biến productList ở đây
+    
+    public ProductApp() throws CloneNotSupportedException {
         initComponents();
+        
         productList = new ProductList(); // Khởi tạo biến productList ở đây
-
+        productList2 = new ProductList();
         // Thêm sản phẩm vào danh sách
         productList.themSanPham(new Product(1, "iPhone 9", "An apple mobile which is nothing like apple", 549, 12.96, 4.69, 94, "Apple", "smartphones"));
         productList.themSanPham(new Product(2, "iPhone X", "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...", 899, 17.94, 4.44, 34, "Apple", "smartphones"));
@@ -51,7 +57,9 @@ public class ProductApp extends javax.swing.JFrame {
         productList.themSanPham(new Product(29, "Handcraft Chinese style", "Handcraft Chinese style art luxury palace hotel villa mansion home decor ceramic vase with brass fruit plate", 60, 15.34, 4.44, 7, "luxury palace", "home-decoration"));
         productList.themSanPham(new Product(30, "Key Holder", "Attractive DesignMetallic materialFour key hooksReliable & DurablePremium Quality", 30, 2.92, 4.92, 54, "Golden", "home-decoration"));
         
+        productList2.copyFrom(productList);
         
+        setTitle("Product manager");
     }
 
     /**
@@ -66,8 +74,10 @@ public class ProductApp extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        List1 = new javax.swing.JList<>();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
+        jComboBox = new javax.swing.JComboBox<>();
+        btnSort = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -81,6 +91,42 @@ public class ProductApp extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         text1 = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textId = new javax.swing.JTextPane();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        textDescription = new javax.swing.JTextPane();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        texTtitle = new javax.swing.JTextPane();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        textDiscountPercentage = new javax.swing.JTextPane();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        textPrice = new javax.swing.JTextPane();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        textRating = new javax.swing.JTextPane();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        textBrand = new javax.swing.JTextPane();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        textStock = new javax.swing.JTextPane();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        textCategory = new javax.swing.JTextPane();
+        loi1 = new javax.swing.JLabel();
+        loi3 = new javax.swing.JLabel();
+        loi4 = new javax.swing.JLabel();
+        loi2 = new javax.swing.JLabel();
+        loi5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        thongBao = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -98,48 +144,84 @@ public class ProductApp extends javax.swing.JFrame {
         jLabel1.setText("Danh sách sản phẩm");
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        List1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        List1.addAncestorListener(new javax.swing.event.AncestorListener() {
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Product name", "Description", "Price", "Discount Percentage", "Rating", "Stock", "Brand", "Category"
+            }
+        ));
+        table.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                List1AncestorAdded(evt);
+                tableAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        jScrollPane1.setViewportView(List1);
+        jScrollPane6.setViewportView(table);
+
+        jComboBox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jComboBox.setForeground(new java.awt.Color(255, 102, 0));
+        jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mặc định", "Thấp đến cao", "Cao đén thấp" }));
+        jComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxActionPerformed(evt);
+            }
+        });
+
+        btnSort.setText("Sắp xếp theo giá");
+        btnSort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSortActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(397, 397, 397)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(452, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(397, 397, 397)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 973, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(btnSort)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(71, 71, 71)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSort, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Hiển thị danh sách sản phẩm", jPanel1);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 102, 51));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Tìm kiếm sản phẩm");
@@ -177,29 +259,28 @@ public class ProductApp extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(120, 120, 120)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(457, 457, 457))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(35, 35, 35))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(24, 24, 24)))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane2))
-                                .addGap(49, 49, 49)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btn2)
-                                    .addComponent(btn1)))
-                            .addComponent(jScrollPane3))
-                        .addGap(156, 156, 156))))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2))
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn2)
+                            .addComponent(btn1)))
+                    .addComponent(jScrollPane3))
+                .addGap(156, 156, 156))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(397, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(396, 396, 396))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,46 +303,258 @@ public class ProductApp extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(55, 55, 55)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Tìm kiếm sản phẩm", jPanel2);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 102, 51));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Thêm sản phẩm");
+        jLabel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel6.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel6.setText("Title");
+        jLabel6.setBorder(new javax.swing.border.MatteBorder(null));
+
+        textId.setBackground(new java.awt.Color(250, 255, 255));
+        textId.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane1.setViewportView(textId);
+
+        jLabel7.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel7.setText("ID");
+        jLabel7.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jLabel8.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel8.setText("Description");
+        jLabel8.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jLabel9.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel9.setText("Price");
+        jLabel9.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jLabel10.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel10.setText("DiscountPercentage");
+        jLabel10.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jLabel11.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel11.setText("Rating");
+        jLabel11.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jLabel12.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel12.setText("Stock");
+        jLabel12.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jLabel13.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel13.setText("Brand");
+        jLabel13.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jLabel14.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel14.setText("Category");
+        jLabel14.setBorder(new javax.swing.border.MatteBorder(null));
+
+        textDescription.setBackground(new java.awt.Color(250, 255, 255));
+        textDescription.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane5.setViewportView(textDescription);
+
+        texTtitle.setBackground(new java.awt.Color(250, 255, 255));
+        texTtitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane7.setViewportView(texTtitle);
+
+        textDiscountPercentage.setBackground(new java.awt.Color(250, 255, 255));
+        textDiscountPercentage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane10.setViewportView(textDiscountPercentage);
+
+        textPrice.setBackground(new java.awt.Color(250, 255, 255));
+        textPrice.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane11.setViewportView(textPrice);
+
+        textRating.setBackground(new java.awt.Color(250, 255, 255));
+        textRating.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane12.setViewportView(textRating);
+
+        textBrand.setBackground(new java.awt.Color(250, 255, 255));
+        textBrand.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane13.setViewportView(textBrand);
+
+        textStock.setBackground(new java.awt.Color(250, 255, 255));
+        textStock.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane14.setViewportView(textStock);
+
+        textCategory.setBackground(new java.awt.Color(250, 255, 255));
+        textCategory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane15.setViewportView(textCategory);
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setText("Add");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        thongBao.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        thongBao.setForeground(new java.awt.Color(51, 204, 0));
+        thongBao.setText("Thông báo: ");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1083, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(381, 381, 381)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(118, 118, 118)
+                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(thongBao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(107, 107, 107)))
+                                .addComponent(jButton1))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                                .addComponent(jScrollPane7)
+                                .addComponent(jScrollPane5)
+                                .addComponent(jScrollPane11)
+                                .addComponent(jScrollPane10)
+                                .addComponent(jScrollPane12)
+                                .addComponent(jScrollPane14)
+                                .addComponent(jScrollPane13)
+                                .addComponent(jScrollPane15)))
+                        .addGap(56, 56, 56)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(loi1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loi3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loi4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loi2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loi5, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(98, 98, 98))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 486, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addGap(124, 124, 124))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loi1))
+                        .addGap(8, 8, 8)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel9)
+                                .addGap(11, 11, 11))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(loi2)
+                                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(loi3))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loi4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(loi5))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(thongBao)))
+                .addGap(38, 38, 38))
         );
 
-        jTabbedPane1.addTab("tab3", jPanel3);
+        jTabbedPane1.addTab("Thêm sản phẩm", jPanel3);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1083, Short.MAX_VALUE)
+            .addGap(0, 1022, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 486, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("tab4", jPanel4);
+        jTabbedPane1.addTab("Xóa Sản phẩm", jPanel4);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1083, Short.MAX_VALUE)
+            .addGap(0, 1022, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 486, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab5", jPanel5);
@@ -270,11 +563,11 @@ public class ProductApp extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1083, Short.MAX_VALUE)
+            .addGap(0, 1022, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 486, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab6", jPanel6);
@@ -283,11 +576,11 @@ public class ProductApp extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1083, Short.MAX_VALUE)
+            .addGap(0, 1022, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 486, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab7", jPanel7);
@@ -310,16 +603,6 @@ public class ProductApp extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void List1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_List1AncestorAdded
-        String productListString = productList.toString();
-   
-        // Tách các sản phẩm thành một mảng các dòng
-        String[] productListLines = productListString.split("\\r?\\n");
-
-        // Đặt mảng dòng vào JList
-        List1.setListData(productListLines);
-    }//GEN-LAST:event_List1AncestorAdded
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
         String name = search2.getText();
@@ -347,6 +630,139 @@ public class ProductApp extends javax.swing.JFrame {
         Product product = productList.timSanPhamTheoID(id);
         text1.setText(product.chuoiDep());
     }//GEN-LAST:event_btn1ActionPerformed
+
+    private void tableAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tableAncestorAdded
+    List<Product> danhSachSanPham = productList.getDanhSachSanPham();
+    
+    // Thiết lập số hàng cho bảng
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    model.setRowCount(danhSachSanPham.size());
+
+    // Lặp qua danh sách sản phẩm và thêm từng sản phẩm vào bảng
+    for (int i = 0; i < danhSachSanPham.size(); i++) {
+        Product product = danhSachSanPham.get(i);
+        model.setValueAt(product.getId(), i, 0);
+        model.setValueAt(product.getTitle(), i, 1);
+        model.setValueAt(product.getDescription(), i, 2);
+        model.setValueAt(product.getPrice(), i, 3);
+        model.setValueAt(product.getDiscountPercentage(), i, 4);
+        model.setValueAt(product.getRating(), i, 5);
+        model.setValueAt(product.getStock(), i, 6);
+        model.setValueAt(product.getBrand(), i, 7);
+        model.setValueAt(product.getCategory(), i, 8);
+    }
+    }//GEN-LAST:event_tableAncestorAdded
+
+    private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxActionPerformed
+
+    private void btnSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortActionPerformed
+        // Lấy danh sách sản phẩm từ ProductList
+    List<Product> danhSachSP = productList2.getDanhSachSanPham();
+    
+    // Lấy chỉ mục của lựa chọn sắp xếp trong JComboBox
+    int selectedIndex = jComboBox.getSelectedIndex();
+
+    // Sắp xếp danh sách sản phẩm tùy theo lựa chọn
+    switch (selectedIndex) {
+        case 0 -> // Mặc định
+            danhSachSP = productList.getDanhSachSanPham();
+        case 1 -> // Thấp đến cao
+            Collections.sort(danhSachSP, Comparator.comparing(Product::getPrice));
+        case 2 -> // Cao đến thấp
+            Collections.sort(danhSachSP, Comparator.comparing(Product::getPrice).reversed());
+    }
+
+    // Cập nhật bảng với danh sách sản phẩm đã được sắp xếp
+        updateTable(danhSachSP);
+    }
+
+    // Phương thức để cập nhật bảng với danh sách sản phẩm đã được sắp xếp
+    private void updateTable(List<Product> productList) {
+        // Lấy mô hình của bảng
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        // Xóa hết các dòng hiện tại trong bảng
+        model.setRowCount(0);
+
+        // Thêm từng sản phẩm vào bảng
+        for (Product product : productList) {
+            Object[] rowData = {product.getId(), product.getTitle(), product.getDescription(),
+                                product.getPrice(), product.getDiscountPercentage(), product.getRating(),
+                                product.getStock(), product.getBrand(), product.getCategory()};
+            model.addRow(rowData);
+        }
+    }//GEN-LAST:event_btnSortActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int idMoi = Integer.parseInt(textId.getText());
+        loi1.setText("");
+        loi3.setText("");
+        loi4.setText("");
+        loi2.setText("");
+        loi5.setText("");
+        boolean kiemTraId = true;
+        boolean kiemTraPrice = true;
+        boolean kiemTraDiscountPercentage = true;
+        boolean kiemTraRating = true;
+        boolean kiemTraStock = true;
+        for (Product product : productList.getDanhSachSanPham()) {
+            if (product.getId() == idMoi) {
+                // Nếu ID mới trùng với ID của một sản phẩm đã tồn tại trong danh sách
+                kiemTraId = false;
+                break; // Thoát khỏi vòng lặp ngay khi tìm thấy ID trùng
+            }
+        }
+        if(!kiemTraId){
+            loi1.setText("Erros!");
+        }
+        String priceMoi = textPrice.getText();
+        String discountPercentageMoi = textDiscountPercentage.getText();
+        String ratingMoi = textRating.getText();
+        String stockMoi = textStock.getText();
+        double price = 0;
+        double discountPercentage = 0;
+        double rating = 0;
+        int stock = 0;
+        try {
+            price = Double.parseDouble(priceMoi);
+            
+        } catch (NumberFormatException e) {
+            kiemTraPrice = false;
+            loi2.setText("Erros!");
+        }
+        try {
+            discountPercentage = Double.parseDouble(discountPercentageMoi);
+        } catch (NumberFormatException e) {
+            kiemTraDiscountPercentage = false;
+            loi3.setText("Erros!");
+        }
+
+        try {
+            rating = Double.parseDouble(ratingMoi);
+        } catch (NumberFormatException e) {
+            kiemTraRating = false;
+            loi4.setText("Erros!");
+        }
+
+        try {
+            stock = Integer.parseInt(stockMoi);
+        } catch (NumberFormatException e) {
+            kiemTraStock = false;
+            loi5.setText("Erros!");
+        }
+        if (kiemTraId && kiemTraPrice && kiemTraDiscountPercentage && kiemTraRating && kiemTraStock) {
+            // Tạo sản phẩm mới và thêm vào danh sách
+            Product product = new Product( idMoi, texTtitle.getText(), textDescription.getText(), price, discountPercentage, rating, stock, textBrand.getText(), textCategory.getText() );
+            productList.themSanPham(product);
+            productList2.themSanPham(product);
+            thongBao.setText("Thông báo: Thêm sản phẩm thành công!");
+        }else{
+            thongBao.setText("Thông báo: Thêm sản phẩm thất bại!!");
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -376,21 +792,36 @@ public class ProductApp extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
                 new ProductApp().setVisible(true);
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(ProductApp.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> List1;
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
+    private javax.swing.JButton btnSort;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -399,12 +830,37 @@ public class ProductApp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel loi1;
+    private javax.swing.JLabel loi2;
+    private javax.swing.JLabel loi3;
+    private javax.swing.JLabel loi4;
+    private javax.swing.JLabel loi5;
     private javax.swing.JTextPane search1;
     private javax.swing.JTextPane search2;
+    private javax.swing.JTable table;
+    private javax.swing.JTextPane texTtitle;
     private javax.swing.JTextArea text1;
+    private javax.swing.JTextPane textBrand;
+    private javax.swing.JTextPane textCategory;
+    private javax.swing.JTextPane textDescription;
+    private javax.swing.JTextPane textDiscountPercentage;
+    private javax.swing.JTextPane textId;
+    private javax.swing.JTextPane textPrice;
+    private javax.swing.JTextPane textRating;
+    private javax.swing.JTextPane textStock;
+    private javax.swing.JLabel thongBao;
     // End of variables declaration//GEN-END:variables
 }

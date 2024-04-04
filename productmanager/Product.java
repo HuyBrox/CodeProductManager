@@ -22,8 +22,7 @@ public class Product {
     private String category;
 
     
-    public Product(int id, String title, String description, double price, double discountPercentage,
-                   double rating, int stock, String brand, String category) {
+    public Product(int id, String title, String description, double price, double discountPercentage, double rating, int stock, String brand, String category) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -33,6 +32,11 @@ public class Product {
         this.stock = stock;
         this.brand = brand;
         this.category = category;
+    }
+    // Phương thức copy
+    public Product copy2() {
+        Product copiedProduct = new Product(this.id, this.title, this.description, this.price, this.discountPercentage, this.rating, this.stock, this.brand, this.category);
+        return copiedProduct;
     }
     //in ra chuỗi đẹp
     public String chuoiDep() {
@@ -137,6 +141,10 @@ public class Product {
                 ", brand='" + brand + '\'' +
                 ", category='" + category + '\'' +
                 '}';
+    }
+
+    Product copy() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

@@ -9,7 +9,7 @@ package productmanager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductList {
+public class ProductList{
     private List<Product> danhSachSanPham;
 
     @Override
@@ -20,7 +20,18 @@ public class ProductList {
         }
         return result.toString();
     }
+    // Phương thức copy
+    public void copyFrom(ProductList productList) {
+        List<Product> copiedProducts = new ArrayList<>();
 
+        // Sao chép danh sách sản phẩm từ productList được truyền vào
+        for (Product product : productList.getDanhSachSanPham()) {
+            copiedProducts.add(product.copy2()); // Sử dụng phương thức copy() của lớp Product
+        }
+
+        // Gán danh sách sao chép vào đối tượng hiện tại
+        this.danhSachSanPham = copiedProducts;
+    }
     public ProductList() {
         this.danhSachSanPham = new ArrayList<>();
     }
@@ -61,6 +72,13 @@ public class ProductList {
         for (Product sanPham : danhSachSanPham) {
             System.out.println(sanPham);
         }
+    }
+    //getter
+    public List<Product> getDanhSachSanPham() {
+        return danhSachSanPham;
+    }
+    public void setDanhSachSanPham(List<Product> danhSachSanPham) {
+        this.danhSachSanPham = danhSachSanPham;
     }
 }
 
